@@ -7,16 +7,23 @@ var bodyParser = require("body-parser");
 var User= require("./models/users").User;
 
 var app= express();
+var session= require("express-session");
 
 
 app.use('/static',express.static('public'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+	secret: "123qwerty",
+	resave: false,
+	saveUninitialized: false
+}));
 
 app.set("view engine","jade");
 
 app.get("/", function(req,res){
+	console.log(req.session.user_id);
 	res.render("index", {nombre: "Albert"});
 });
 
@@ -59,8 +66,9 @@ app.post("/user",function(req,res){
 
 app.post("/sessions",function(req,res){
 	
-	User.findOne({email: req.body.email, password: req.body.password}, function(err,docs){
-		console.log(docs);
+	User.findOne({email: req.body.email, password: req.body.password}, function(err,user){
+		
+		req.session.user_id= user._id;
 		res.send("Sesión iniciada");
 	});
 		
