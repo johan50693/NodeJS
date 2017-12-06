@@ -22,9 +22,15 @@ app.get("/", function(req,res){
 
 app.get("/login", function(req,res){
 	
+	res.render("login");
+	
+});
+
+app.get("/signup", function(req,res){
+	
 	User.find(function(err,doc){
-		console.log(doc);
-		res.render("login");
+		// console.log(doc);
+		res.render("signup");
 	});
 	
 });
@@ -38,7 +44,7 @@ app.post("/user",function(req,res){
 		username: req.body.username
 	});
 
-	console.log(user.password_confirmation);
+	// console.log(user.password_confirmation);
 
 	user.save(function(err){
 		console.log(req.body);
@@ -49,6 +55,15 @@ app.post("/user",function(req,res){
 		res.send("El Usuario fue registrado exitosamente");	
 	});
 	
+});
+
+app.post("/sessions",function(req,res){
+	
+	User.findOne({email: req.body.email, password: req.body.password}, function(err,docs){
+		console.log(docs);
+		res.send("Sesión iniciada");
+	});
+		
 });
 
 
