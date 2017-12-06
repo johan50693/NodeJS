@@ -38,9 +38,13 @@ app.post("/user",function(req,res){
 	});
 
 	console.log(user.password_confirmation);
-	
-	user.save(function(){
+
+	user.save(function(err){
 		console.log(req.body);
+		if (err) {
+			console.log(String(err));
+		}
+		
 		res.send("El Usuario fue registrado exitosamente");	
 	});
 	
