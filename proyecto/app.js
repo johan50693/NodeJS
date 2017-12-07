@@ -8,9 +8,11 @@ var User= require("./models/users").User;
 
 var app= express();
 var session= require("express-session");
+var router_app= require("./router_app");
+var session_middleware= require("./middlewares/session");
 
 
-app.use('/static',express.static('public'));
+app.use('/public',express.static('public'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -69,10 +71,13 @@ app.post("/sessions",function(req,res){
 	User.findOne({email: req.body.email, password: req.body.password}, function(err,user){
 		
 		req.session.user_id= user._id;
-		res.send("Sesión iniciada");
+		res.redirect("/app");
 	});
 		
 });
+
+app.use("/app",session_middleware);
+app.use("/app",router_app);
 
 
 app.listen(8080);

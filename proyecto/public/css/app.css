@@ -1,3 +1,17 @@
-body{
-	
+
+
+.right-space{
+	margin-right: 1em;
+}
+
+.remove-float{
+	float: none;
+}
+
+.big-top-space{
+	margin-top: 100px;	
+}
+
+.big-top-btn{
+	margin-top: 1em;
 }
