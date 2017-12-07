@@ -70,8 +70,14 @@ app.post("/sessions",function(req,res){
 	
 	User.findOne({email: req.body.email, password: req.body.password}, function(err,user){
 		
-		req.session.user_id= user._id;
-		res.redirect("/app");
+		if (user == null) {
+			console.log("El email o contraseña no coinciden");
+			res.redirect("/login");
+		}else{
+			req.session.user_id= user._id;
+			res.redirect("/app");
+		}
+		
 	});
 		
 });
