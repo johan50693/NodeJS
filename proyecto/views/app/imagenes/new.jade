@@ -4,20 +4,23 @@ block contenido
 
 		div(class="row justify-content-md-center big-top-space")
 				
-				h1 Cargar imagen nueva
+				
+					div(class="col-md-12 text-center")
+						h1 Cargar imagen nueva
+				
+				
+					div(class="col-md-6")
 
-				div(class="col-md-6")
+						form(action="/app/imagenes", method="POST")
 
-					form(action="/imagenes", method="POST")
+							div(class="form-group")
+								label(for="title") Titulo
+								input(type="text", name="title", placeholder="title", id="title", class="form-control")
 
-						div(class="form-group")
-							label(for="title") Titulo
-							input(type="text", name="title", placeholder="title", id="title", class="form-control")
+							div(form-group)
+								label(for="image") Imagen
+								input(type="file", name="image", id="image", class="form-control")
 
-						div(form-group)
-							label(for="image") Imagen
-							input(type="file", name="image", id="image", class="form-control")
-
-						div(class="row big-top-btn")
-							div(class="col-md-6")
-								input(type="submit", class="btn btn-primary")
+							div(class="row big-top-btn")
+								div(class="col-md-6")
+									input(type="submit", class="btn btn-primary")
