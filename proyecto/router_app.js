@@ -14,7 +14,9 @@ router.get("/imagenes/new",function(req,res){
 });
 
 router.get("/imagenes/:id/edit",function(req,res){
-
+	Imagen.findById(req.params.id,function(err,imagen){
+		res.render("app/imagenes/edit",{imagen: imagen});
+	});
 });
 
 
@@ -28,7 +30,17 @@ router.route("/imagenes/:id")
 	})
 
 	.put(function(req,res){
-
+		Imagen.findById(req.params.id,function(err,imagen){
+			imagen.title= req.body.title;
+			imagen.save(function(err){
+				if (!err) {
+					res.render("app/imagenes/show",{imagen: imagen});
+				}else{
+					res.render("app/imagenes/"+imagen._id+"edit",{imagen: imagen});
+				}
+			});
+			
+		});
 	})
 
 	.delete(function(req,res){
@@ -38,7 +50,11 @@ router.route("/imagenes/:id")
 router.route("/imagenes")
 
 	.get(function(req,res){
-
+		Imagen.find({},function(err,imagenes){
+			if (err) {res.redirect("/app"); return;}
+			console.log(imagenes);
+			res.render("app/imagenes/index",{imagenes: imagenes});
+		});
 	})
 
 	.post(function(req,res){
