@@ -27,7 +27,7 @@ app.use(cookieSession({
 app.set("view engine","jade");
 
 app.get("/", function(req,res){
-	console.log(req.session.user_id);
+	//console.log(req.session.user_id);
 	res.render("index", {nombre: "Albert"});
 });
 
@@ -58,7 +58,7 @@ app.post("/user",function(req,res){
 	// console.log(user.password_confirmation);
 
 	user.save(function(err){
-		console.log(req.body);
+		//console.log(req.body);
 		if (err) {
 			console.log(String(err));
 		}
