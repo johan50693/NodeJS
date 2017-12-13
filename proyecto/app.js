@@ -17,7 +17,11 @@ app.use('/public',express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(methodOverride("_method"))
+var multipart = require('connect-multiparty');
+app.use(multipart()); 
+ 
+
+app.use(methodOverride("_method"));
 
 app.use(cookieSession({
 	name: "session",

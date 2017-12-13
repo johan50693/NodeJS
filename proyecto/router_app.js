@@ -6,6 +6,12 @@ var router= express.Router();
 
 var image_finder_middleware= require("./middlewares/find_image");
 
+var fs= require("fs");
+
+// var multer= require('multer');
+// var upload= multer({dest: 'uploads/'});
+
+
 router.get("",function(req,res){
 
 	res.render("app/home");
@@ -70,7 +76,13 @@ router.route("/imagenes")
 
 	.post(function(req,res){
 		//console.log(res);
+	
+
+   		console.log(req.body);
+   		console.log(req.files.archivo.path);
 		console.log("User: "+res.locals.user._id);
+		// console.log("Extension: "+ extension);
+
 		var data= {
 			title: req.body.title,
 			creator: res.locals.user._id
@@ -80,6 +92,13 @@ router.route("/imagenes")
 
 		imagen.save(function(err){
 			if (!err) {
+
+				var extension= req.files.archivo.name.split(".").pop();
+				var ruta_archivo= req.files.archivo.path;
+				var nueva_ruta= "./public/imagenes/"+imagen._id+"."+extension;
+
+				/*copia el archivo desde tmp hasta nueva ruta*/
+				fs.createReadStream(ruta_archivo).pipe(fs.createWriteStream(nueva_ruta));
 				res.redirect("/app/imagenes/"+imagen._id);
 			}else{
 				res.render(err);
