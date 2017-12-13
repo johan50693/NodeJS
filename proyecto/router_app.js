@@ -12,9 +12,15 @@ var fs= require("fs");
 // var upload= multer({dest: 'uploads/'});
 
 
-router.get("",function(req,res){
+router.get("/",function(req,res){
 
-	res.render("app/home");
+	Imagen.find({})
+		  .populate("creator")
+		  .exec(function(err,imagenes){
+		  	if(err) console.log(err);
+			res.render("app/home",{imagenes: imagenes});	  	
+		  })
+	
 });
 
 router.get("/imagenes/new",function(req,res){

@@ -2,6 +2,14 @@ extends ../layout.jade
 
 block contenido
 
-	h1 App Home page
+	div(class="container")
+		for imagen in imagenes
+			div(class="row pb-3")
+				div(class="col-md-6 offset-md-3")
+					h2(class="d-flex justify-content-center")  #{imagen.title}
+					img(src="/public/imagenes/#{imagen._id}.#{imagen.extension}", class="img")
+					if (typeof imagenes.creator != "undefined")
+						p(class="text-right") por #{imagen.creator.email}
 
-	p Bienvenido #{user.email}
+			hr
+			hr

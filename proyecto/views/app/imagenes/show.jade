@@ -3,8 +3,11 @@
 extends ../../layout.jade
 block contenido
 
-	h1  #{imagen.title}
-	img(src="/public/imagenes/#{imagen._id}.#{imagen.extension}")
-	if (typeof imagen.creator == "undefined")
-		p por #{imagen.creator.email}
+	div(class="container")
+		div(class="row ")
+			div(class="col-md-6 offset-md-3")
+				h1(class="d-flex justify-content-center")  #{imagen.title}
+				img(src="/public/imagenes/#{imagen._id}.#{imagen.extension}", class="img")
+				if (typeof imagen.creator != "undefined")
+					p(class="text-right") por #{imagen.creator.email}
 
