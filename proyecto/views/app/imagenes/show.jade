@@ -4,5 +4,6 @@ extends ../../layout.jade
 block contenido
 
 	h1  #{imagen.title}
-	p por #{imagen.creator.email}
+	if (typeof imagen.creator == "undefined")
+		p por #{imagen.creator.email}
 
