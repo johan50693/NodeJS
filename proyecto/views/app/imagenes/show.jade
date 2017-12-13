@@ -4,6 +4,7 @@ extends ../../layout.jade
 block contenido
 
 	h1  #{imagen.title}
+	img(src="/public/imagenes/#{imagen._id}.#{imagen.extension}")
 	if (typeof imagen.creator == "undefined")
 		p por #{imagen.creator.email}
 

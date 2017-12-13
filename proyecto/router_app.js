@@ -77,15 +77,16 @@ router.route("/imagenes")
 	.post(function(req,res){
 		//console.log(res);
 	
-
+		var extension= req.files.archivo.name.split(".").pop();
    		console.log(req.body);
    		console.log(req.files.archivo.path);
 		console.log("User: "+res.locals.user._id);
-		// console.log("Extension: "+ extension);
+		console.log("Extension: "+ extension);
 
 		var data= {
 			title: req.body.title,
-			creator: res.locals.user._id
+			creator: res.locals.user._id,
+			extension: extension
 		}
 
 		var imagen = new Imagen(data);
@@ -93,7 +94,6 @@ router.route("/imagenes")
 		imagen.save(function(err){
 			if (!err) {
 
-				var extension= req.files.archivo.name.split(".").pop();
 				var ruta_archivo= req.files.archivo.path;
 				var nueva_ruta= "./public/imagenes/"+imagen._id+"."+extension;
 
